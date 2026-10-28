@@ -1,0 +1,45 @@
+{
+  "last_sync": "2026-10-27T14:29:22.350985+00:00",
+  "events": [
+    {
+      "title": "Federal Funds Rate",
+      "country": "USD",
+      "impact": "High",
+      "time_utc": "2026-10-28T18:00:00+00:00",
+      "forecast": "4.00%",
+      "previous": "4.00%"
+    },
+    {
+      "title": "FOMC Statement",
+      "country": "USD",
+      "impact": "High",
+      "time_utc": "2026-10-28T18:00:00+00:00",
+      "forecast": "",
+      "previous": ""
+    },
+    {
+      "title": "FOMC Press Conference",
+      "country": "USD",
+      "impact": "High",
+      "time_utc": "2026-10-28T18:30:00+00:00",
+      "forecast": "",
+      "previous": ""
+    },
+    {
+      "title": "Advance GDP q/q",
+      "country": "USD",
+      "impact": "High",
+      "time_utc": "2026-10-29T12:30:00+00:00",
+      "forecast": "3.2%",
+      "previous": "1.5%"
+    },
+    {
+      "title": "Core PCE Price Index m/m",
+      "country": "USD",
+      "impact": "High",
+      "time_utc": "2026-10-29T12:30:00+00:00",
+      "forecast": "0.3%",
+      "previous": "0.2%"
+    }
+  ]
+}

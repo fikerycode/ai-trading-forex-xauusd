@@ -1,0 +1,12 @@
+# Core dependencies for Anti-Gravity XAUUSD Scalping Engine
+MetaTrader5>=5.0.45; sys_platform == 'win32'
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+numpy>=1.26.0
+pandas>=2.1.0
+scipy>=1.11.0
+lightgbm>=4.1.0
+aiohttp>=3.9.0
+loguru>=0.7.2
+python-dateutil>=2.8.2
+pytz>=2023.3

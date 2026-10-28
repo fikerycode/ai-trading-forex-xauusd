@@ -1,0 +1,17 @@
+{
+    "iteration": 3.0,
+    "wick_ratio": 0.6,
+    "rvol_sigma": 2.8,
+    "be_r": 0.8,
+    "partial_r": 1.6,
+    "trailing_atr": 1.0,
+    "total_trades": 202.0,
+    "win_rate_pct": 56.44,
+    "profit_factor": 1.12,
+    "net_profit_usd": 1043.06,
+    "roi_pct": 10.43,
+    "max_drawdown_pct": 12.28,
+    "sharpe_ratio": 3.87,
+    "sortino_ratio": 91.3,
+    "score": 9.6234
+}

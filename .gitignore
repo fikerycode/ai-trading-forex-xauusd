@@ -1,0 +1,32 @@
+# Environment credentials and secrets
+.env
+*.env.local
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Logs and runtime databases
+*.log
+antigravity_execution.log
+*.sqlite
+*.sqlite3
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Temporary and local test outputs
+.system_generated/
+.tempmediaStorage/
+scratch/

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anti-Gravity // Institutional XAUUSD Scalping Terminal</title>
+  <meta name="description" content="Sub-second Institutional Quantitative Trading Terminal and AI Telemetry Command Center for Spot Gold (XAUUSD).">
+  <link rel="stylesheet" href="index.css">
+  <!-- TradingView Lightweight Charts CDN -->
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+  <div class="terminal-wrapper">
+    
+    <!-- =========================================================================
+         HEADER & REAL-TIME INSTRUMENT HUD
+         ========================================================================= -->
+    <header class="terminal-header">
+      <div class="brand-section">
+        <div class="brand-logo">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
+            </svg>
+          </div>
+          <h1 class="brand-title">ANTI-GRAVITY // SCALPER</h1>
+        </div>
+        <span class="badge-version">v1.0.0</span>
+      </div>
+
+      <!-- Instrument Ticker & Sentinels HUD -->
+      <div class="instrument-hud">
+        <div class="asset-pill" id="assetPill">
+          <span class="asset-symbol">XAUUSD</span>
+          <div class="asset-prices">
+            <span>Bid: <strong class="bid-val" id="bidDisplay">$2,652.45</strong></span>
+            <span>Ask: <strong class="ask-val" id="askDisplay">$2,652.60</strong></span>
+          </div>
+          <span class="spread-badge" id="spreadDisplay">15¢</span>
+        </div>
+
+        <div class="status-beacon" id="statusBeacon">
+          <div class="pulse-dot"></div>
+          <span id="beaconText">SCANNING</span>
+        </div>
+      </div>
+
+      <!-- Header Actions & Controls -->
+      <div class="header-actions">
+        <div class="utc-clock" id="utcClock">2026-10-27 00:00:00 UTC</div>
+        <button id="btnViewToggle" class="btn-view-toggle" title="Toggle between Simple Output View and Full Telemetry View">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span id="viewToggleText">⚡ Focus Mode</span>
+        </button>
+        <button id="btnKillSwitch" class="btn-kill-switch" title="Emergency halt all trading and close open positions">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+          </svg>
+          KILL SWITCH
+        </button>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         HERO SIMPLE OUTPUT & SIGNAL COMMAND BAR
+         ========================================================================= -->
+    <section class="simple-output-banner" id="simpleOutputBanner">
+      <div class="simple-output-grid">
+        
+        <!-- Box 1: Signal Output -->
+        <div class="simple-box signal-box">
+          <div class="simple-box-label">
+            <span>LIVE STRATEGY SIGNAL</span>
+            <span class="live-pill" id="simpleStatusBadge">SCANNING</span>
+          </div>
+          <div class="simple-signal-main">
+            <span class="signal-badge neutral" id="simpleSignalBadge">SCANNING</span>
+            <div class="signal-desc-group">
+              <div class="signal-headline" id="simpleSignalTitle">Evaluating M1 Liquidity Sweeps...</div>
+              <div class="signal-details" id="simpleSignalDetails">Target: Active | Min SL: 1.0x ATR | Headroom: 2.0x ATR</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box 2: Price & Spread Output -->
+        <div class="simple-box price-box">
+          <div class="simple-box-label">
+            <span>SPOT GOLD (XAUUSD)</span>
+            <span class="spread-indicator" id="simpleSpreadBadge">Spread: 15¢</span>
+          </div>
+          <div class="simple-price-val" id="simplePriceVal">$2,652.45</div>
+          <div class="simple-price-sub" id="simplePriceSub">M1 Flow: ATR $0.85 | Broker Spread: PASS</div>
+        </div>
+
+        <!-- Box 3: Performance & Session PnL -->
+        <div class="simple-box pnl-box">
+          <div class="simple-box-label">
+            <span>TODAY'S NET REALIZED PNL</span>
+            <span class="winrate-pill" id="simpleWinRateBadge">Win Rate: 56.4%</span>
+          </div>
+          <div class="simple-pnl-val kpi-positive" id="simplePnlVal">+$1,043.06</div>
+          <div class="simple-pnl-sub" id="simplePnlSub">114 Wins / 88 Losses (Profit Factor: 1.12)</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         QUANTITATIVE KPI METRIC CARDS
+         ========================================================================= -->
+    <section class="kpi-grid">
+      <div class="kpi-card" id="kpiCardNetProfit">
+        <div class="kpi-header">
+          <span>Net Realized PnL</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline></svg>
+        </div>
+        <div class="kpi-value kpi-positive" id="kpiNetProfit">+$1,043.06</div>
+        <div class="kpi-sub">+10.43% Total ROI</div>
+      </div>
+
+      <div class="kpi-card" id="kpiCardWinRate">
+        <div class="kpi-header">
+          <span>Win Rate</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        </div>
+        <div class="kpi-value kpi-cyan" id="kpiWinRate">56.4%</div>
+        <div class="kpi-sub">114 Wins / 88 Losses</div>
+      </div>
+
+      <div class="kpi-card" id="kpiCardPF">
+        <div class="kpi-header">
+          <span>Profit Factor</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M16 8l-8 8"></path></svg>
+        </div>
+        <div class="kpi-value kpi-gold" id="kpiProfitFactor">1.12</div>
+        <div class="kpi-sub">$9.5k Gross / $8.5k Loss</div>
+      </div>
+
+      <div class="kpi-card" id="kpiCardSharpe">
+        <div class="kpi-header">
+          <span>Sharpe / Sortino</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        </div>
+        <div class="kpi-value kpi-cyan" id="kpiSharpeRatio">3.87</div>
+        <div class="kpi-sub">Sortino Ratio: 91.30</div>
+      </div>
+
+      <div class="kpi-card" id="kpiCardDrawdown">
+        <div class="kpi-header">
+          <span>Max Drawdown</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>
+        </div>
+        <div class="kpi-value kpi-positive" id="kpiMaxDrawdown">12.28%</div>
+        <div class="kpi-sub">Peak DD: $1,263.30</div>
+      </div>
+
+      <div class="kpi-card" id="kpiCardLifecycle">
+        <div class="kpi-header">
+          <span>Lifecycle Brackets</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
+        </div>
+        <div class="kpi-value kpi-gold" id="paramBeR">+0.8R</div>
+        <div class="kpi-sub">TP: <span id="paramPartialR">+1.6R</span> | Trail: <span id="paramTrailATR">1.0x ATR</span></div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         MAIN WORKSPACE: CANDLESTICK CANVAS & AI RADAR
+         ========================================================================= -->
+    <main class="main-workspace">
+      
+      <!-- Interactive Candlestick Chart -->
+      <section class="chart-panel">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h2 class="chart-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-accent)" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Spot Gold (XAUUSD) — M1 Institutional Flow
+            </h2>
+          </div>
+          <div class="chart-toolbar">
+            <button class="tool-btn active" data-tf="M1" id="btnTfM1">M1</button>
+            <button class="tool-btn" data-tf="M5" id="btnTfM5">M5</button>
+            <button class="tool-btn" data-tf="M15" id="btnTfM15">M15</button>
+            <button class="tool-btn" data-tf="H1" id="btnTfH1">H1</button>
+          </div>
+        </div>
+
+        <!-- Canvas Container -->
+        <div class="chart-container" id="chartContainer"></div>
+      </section>
+
+      <!-- AI Telemetry & Sentinels Sidebar -->
+      <aside class="telemetry-sidebar">
+        
+        <!-- Native GBDT AI Model Radar -->
+        <div class="telemetry-card" id="cardModelRadar">
+          <div class="telemetry-title">
+            <span>GBDT Alpha Predictor</span>
+            <span style="color:var(--cyan-neon);">ONLINE</span>
+          </div>
+
+          <div class="gauge-row">
+            <span class="gauge-label">Conformal Probability</span>
+            <span class="gauge-val kpi-cyan" id="probVal">35.4%</span>
+          </div>
+          <div class="gauge-row">
+            <span class="gauge-label">Shannon Entropy</span>
+            <span class="gauge-val" id="entropyVal">0.521 nats</span>
+          </div>
+          <div class="gauge-row">
+            <span class="gauge-label">Classified Regime</span>
+            <span class="gauge-val kpi-gold" id="regimeVal">COMPRESSED_RANGE</span>
+          </div>
+
+          <!-- Feature Importance Bars -->
+          <div class="feature-bars" id="featureBarsContainer">
+            <div class="feature-item">
+              <div class="feature-info"><span>normalized_atr</span><span>30.5%</span></div>
+              <div class="progress-track"><div class="progress-fill" style="width: 30.5%"></div></div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-info"><span>cvd (delta)</span><span>25.5%</span></div>
+              <div class="progress-track"><div class="progress-fill" style="width: 25.5%"></div></div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-info"><span>m1_atr</span><span>22.8%</span></div>
+              <div class="progress-track"><div class="progress-fill" style="width: 22.8%"></div></div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-info"><span>rvol_sigma</span><span>9.5%</span></div>
+              <div class="progress-track"><div class="progress-fill" style="width: 9.5%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Volatility & Safety Sentinels -->
+        <div class="telemetry-card" id="cardSentinels">
+          <div class="telemetry-title">
+            <span>Safety Sentinels</span>
+            <span style="color:var(--green-profit);">ARMED</span>
+          </div>
+
+          <div class="sentinel-status-list">
+            <div class="sentinel-item">
+              <span>Spread Gate (&le;35¢)</span>
+              <span class="sentinel-pass" id="sentinelSpread">PASS (15¢)</span>
+            </div>
+            <div class="sentinel-item">
+              <span>Daily Loss Circuit Breaker</span>
+              <span class="sentinel-pass" id="sentinelDrawdown">0.00% / 3.0%</span>
+            </div>
+            <div class="sentinel-item">
+              <span>Macro News Lockout</span>
+              <span class="sentinel-pass" id="sentinelNews">ACTIVE (5 Events)</span>
+            </div>
+            <div class="sentinel-item">
+              <span>Execution Bridge</span>
+              <span class="sentinel-pass" id="sentinelBridge">SUB-50ms IOC</span>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </main>
+
+    <!-- =========================================================================
+         BOTTOM TABS: POSITIONS, TRADES, MACRO CALENDAR, LOGS
+         ========================================================================= -->
+    <section class="bottom-section">
+      <div class="tab-container">
+        <nav class="tab-nav">
+          <button class="tab-btn active" data-tab="trades" id="tabBtnTrades">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Historical Trade Journal
+          </button>
+          <button class="tab-btn" data-tab="calendar" id="tabBtnCalendar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Forex Factory Calendar
+          </button>
+          <button class="tab-btn" data-tab="logs" id="tabBtnLogs">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            System Telemetry Logs
+          </button>
+        </nav>
+
+        <div class="tab-content">
+          
+          <!-- Tab 1: Trade History -->
+          <div class="tab-pane" id="tab-trades">
+            <table class="terminal-table" id="tradesTable">
+              <thead>
+                <tr>
+                  <th>Ticket</th>
+                  <th>Entry Time (UTC)</th>
+                  <th>Direction</th>
+                  <th>Volume</th>
+                  <th>Entry Price</th>
+                  <th>Exit Price</th>
+                  <th>PnL ($)</th>
+                  <th>R-Multiple</th>
+                  <th>Exit Reason</th>
+                </tr>
+              </thead>
+              <tbody id="tradesTableBody">
+                <!-- Dynamically populated via app.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Tab 2: Forex Factory Calendar -->
+          <div class="tab-pane" id="tab-calendar" style="display:none;">
+            <div id="calendarEventsList">
+              <!-- Dynamically populated via app.js -->
+            </div>
+          </div>
+
+          <!-- Tab 3: System Logs -->
+          <div class="tab-pane" id="tab-logs" style="display:none;">
+            <div class="console-box" id="consoleBox">
+              <div class="log-entry"><span class="log-time">18:20:10.462</span><span class="log-tag-ml">[ML INFERENCE]</span><span>Loaded native GBDT weights from antigravity_gold_model.json</span></div>
+              <div class="log-entry"><span class="log-time">18:20:10.516</span><span class="log-tag-trade">[BACKTEST]</span><span>Simulated 6,535 historical M1 bars | Net Profit: +$1,043.06 | PF: 1.12</span></div>
+              <div class="log-entry"><span class="log-time">18:20:11.231</span><span class="log-tag-risk">[RISK CONTROLLER]</span><span>Lifecycle parameters ingested: BE=+0.8R, Partial=+1.6R, Trail=1.0x ATR</span></div>
+              <div class="log-entry"><span class="log-time">18:20:11.565</span><span class="log-tag-ml">[NEWS SENTINEL]</span><span>Monitoring 5 scheduled high-impact USD events (FOMC, GDP, PCE)</span></div>
+              <div class="log-entry"><span class="log-time">18:20:12.000</span><span class="log-tag-trade">[STATE MACHINE]</span><span>State Transition: [IDLE] -> [SCANNING] (Awaiting live M1 ticks)</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
